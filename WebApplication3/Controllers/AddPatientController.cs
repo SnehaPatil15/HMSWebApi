@@ -20,28 +20,7 @@ namespace WebApplication3.Controllers
         {
             _configuration = configuration;
         }
-        //[HttpGet]
-        //public JsonResult Get(int pid)
-        //{
-        //    string query = @"select * from AddPatient where pid=@pid"; //where pid=1 or where pid=@pid
-        //    DataTable table = new DataTable();
-        //    string sqlDataSourse = _configuration.GetConnectionString("AddPatientAppCon");
-        //    SqlDataReader myReader;
-        //    using (SqlConnection myCon = new SqlConnection(sqlDataSourse))
-        //    {
-        //        myCon.Open();
-        //        using (SqlCommand myCommand = new SqlCommand(query, myCon))
-        //        {
-        //            myCommand.Parameters.AddWithValue("@pid", pid);
-        //            myReader = myCommand.ExecuteReader();
-        //            table.Load(myReader);
-        //            myReader.Close();
-        //            myCon.Close();
-        //        }
-        //    }
-        //    return new JsonResult(table);
-
-        //}
+       
         [HttpGet]
         public JsonResult Get()
         {
@@ -64,36 +43,38 @@ namespace WebApplication3.Controllers
             return new JsonResult(table);
 
         }
-        //[HttpPost]
-        //public JsonResult Post(AddPatient AP)
-        //{
-        //    string query = @"insert into AddPatient values(@Name,@Full_Address,@Contact,@Age,@Gender ,@Blood_Group,@Major_Disease)"; //where pid=1
-        //    DataTable table = new DataTable();
-        //    string sqlDataSourse = _configuration.GetConnectionString("AddPatientAppCon");
-        //    SqlDataReader myReader;
-        //    using (SqlConnection myCon = new SqlConnection(sqlDataSourse))
-        //    {
-        //        myCon.Open();
-        //        using (SqlCommand myCommand = new SqlCommand(query, myCon))
-        //        {
-        //            myCommand.Parameters.AddWithValue("@Name", AP.Name);
-        //            myCommand.Parameters.AddWithValue("@Full_Address", AP.Full_Address);
-        //            myCommand.Parameters.AddWithValue("@Contact", AP.Contact);
-        //            myCommand.Parameters.AddWithValue("@Age", AP.Age);
-        //            myCommand.Parameters.AddWithValue("@Gender", AP.Gender);
-        //            myCommand.Parameters.AddWithValue("@Blood_Group", AP.Blood_Group);
-        //            myCommand.Parameters.AddWithValue("@Major_Disease", AP.Major_Disease);
-
-        //            myReader = myCommand.ExecuteReader();
-        //            table.Load(myReader);
-        //            myReader.Close();
-        //            myCon.Close();
-        //        }
-        //    }
-        //    return new JsonResult(table);
 
 
-        //}
+        [HttpPost]
+        public JsonResult Post(AddPatient AP)
+        {
+            string query = @"insert into AddPatient values(@Name,@Full_Address,@Contact,@Age,@Gender ,@Blood_Group,@Major_Disease)"; //where pid=1
+            DataTable table = new DataTable();
+            string sqlDataSourse = _configuration.GetConnectionString("AddPatientAppCon");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSourse))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myCommand.Parameters.AddWithValue("@Name", AP.Name);
+                    myCommand.Parameters.AddWithValue("@Full_Address", AP.Full_Address);
+                    myCommand.Parameters.AddWithValue("@Contact", AP.Contact);
+                    myCommand.Parameters.AddWithValue("@Age", AP.Age);
+                    myCommand.Parameters.AddWithValue("@Gender", AP.Gender);
+                    myCommand.Parameters.AddWithValue("@Blood_Group", AP.Blood_Group);
+                    myCommand.Parameters.AddWithValue("@Major_Disease", AP.Major_Disease);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
+
         [HttpPut]
         public JsonResult Put(AddPatient AP)
         {
